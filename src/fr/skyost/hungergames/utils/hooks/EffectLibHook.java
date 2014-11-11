@@ -6,8 +6,8 @@ import org.bukkit.entity.Entity;
 
 import de.slikey.effectlib.EffectLib;
 import de.slikey.effectlib.EffectManager;
-import de.slikey.effectlib.effect.BleedEntityEffect;
-import de.slikey.effectlib.effect.TextLocationEffect;
+import de.slikey.effectlib.effect.BleedEffect;
+import de.slikey.effectlib.effect.TextEffect;
 import de.slikey.effectlib.util.ParticleEffect;
 import fr.skyost.hungergames.HungerGames;
 
@@ -23,7 +23,8 @@ public class EffectLibHook {
 	 */
 	
 	public final void writeTextInParticles(final String text, final Location location) {
-		final TextLocationEffect effect = new TextLocationEffect(manager, location);
+		final TextEffect effect = new TextEffect(manager);
+		effect.setLocation(location);
 		effect.text = text;
 		effect.particle = ParticleEffect.FLAME;
 		effect.start();
@@ -44,7 +45,8 @@ public class EffectLibHook {
 	 */
 	
 	public final void bleed(final Entity entity) {
-		final BleedEntityEffect effect = new BleedEntityEffect(manager, entity);
+		final BleedEffect effect = new BleedEffect(manager);
+		effect.setEntity(entity);
 		effect.duration = 1;
 		effect.iterations = 1;
 		effect.start();
