@@ -2,6 +2,7 @@ package fr.skyost.hungergames.tasks;
 
 import java.util.Map.Entry;
 
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -15,7 +16,7 @@ public class PostExecuteFirst extends BukkitRunnable {
 	@Override
 	public void run() {
 		HungerGames.currentStep = Step.SECOND_COUNTDOWN;
-		final String message = HungerGames.messages.message4.replace("/n/", String.valueOf(HungerGames.config.gameCountdownTime));
+		//final String message = HungerGames.messages.message4.replace("/n/", String.valueOf(HungerGames.config.gameCountdownTime));
 		Player player;
 		for(final Entry<Player, HungerGamesProfile> entry : HungerGames.players.entrySet()) {
 			player = entry.getKey();
@@ -26,7 +27,7 @@ public class PostExecuteFirst extends BukkitRunnable {
 			player.setHealth(player.getMaxHealth());
 			player.setFoodLevel(20);
 			player.getInventory().removeItem(HungerGames.kitSelector);
-			player.sendMessage(message);
+			player.sendMessage(ChatColor.DARK_PURPLE + "Get ready to battle!");
 		}
 //		HungerGames.tasks[0] = new Countdown(HungerGames.config.gameCountdownTime, HungerGames.config.gameCountdownExpBarLevel, HungerGames.config.gameCountdownMobBar, new PostExecuteSecond()).runTaskTimer(HungerGames.instance, 0, 20L).getTaskId();
 //		HungerGames.tasks[1] = -1;

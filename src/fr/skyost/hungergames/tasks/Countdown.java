@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import fr.skyost.hungergames.HungerGames;
 import fr.skyost.hungergames.utils.ErrorReport;
@@ -36,7 +37,10 @@ public class Countdown extends BukkitRunnable {
 		this.stale = stale;
 		startLocations = new HashMap<UUID, Location>();
 		for (Player player : players) {
-			startLocations.put(player.getUniqueId(), player.getLocation());
+			Location loc = player.getLocation();
+			Vector v = loc.getWorld().getSpawnLocation().toVector().subtract(loc.toVector());
+			loc.setDirection(v);
+			startLocations.put(player.getUniqueId(), loc);
 		}
 	}
 
