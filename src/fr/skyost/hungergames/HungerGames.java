@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -85,6 +83,8 @@ public class HungerGames extends JavaPlugin {
 	public static Pages pages;
 	public static Inventory kitsMenu;
 	public static ItemStack kitSelector;
+	
+	public static ChestHolder chestHolder;
 	
 	public enum Step {
 		LOBBY,
@@ -322,9 +322,7 @@ public class HungerGames extends JavaPlugin {
 					maxZ = z1;
 				}
 				
-				int spawnX = mapInfoConfig.getInt("spawnX", 0);
-				int spawnY = mapInfoConfig.getInt("spawnY", 0);
-				int spawnZ = mapInfoConfig.getInt("spawnZ", 0);				
+				chestHolder = new ChestHolder(HungerGames.currentMap, minX, minZ, maxX, maxZ);
 				
 				ConfigurationSection spawnLocationsConfig = mapInfoConfig.getConfigurationSection("spawnLocations");
 				if (spawnLocationsConfig != null){
