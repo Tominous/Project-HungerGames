@@ -227,7 +227,7 @@ public class HungerGames extends JavaPlugin {
 					final JsonItemStack randomItem = JsonItemStack.fromJson(Utils.getFileContent(randomItemFile, null), "chances");
 					randomItems.put(Integer.parseInt(randomItem.getOtherData().toString()), randomItem.toItemStack());
 				}
-				else if (randomItemFile.getName().endsWith(".yaml")) {
+				else if (randomItemFile.getName().endsWith(".yml")) {
 					//yaml potion
 					final YamlPotion potion = new YamlPotion(YamlConfiguration.loadConfiguration(randomItemFile));
 					randomItems.put(potion.getChance(), potion.getItemStack());
