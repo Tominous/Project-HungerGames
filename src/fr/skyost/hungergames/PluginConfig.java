@@ -147,6 +147,10 @@ public class PluginConfig extends Skyoconfig {
 	@ConfigOptions(name = "logs.file.directory")
 	public String logFileDirectory;
 	
+	@ConfigOptions(name = "mapinfo.directory")
+	public String mapInfoDirectory;
+	
+	
 	public PluginConfig(final File dataFolder) {
 		super(new File(dataFolder, "config.yml"), Arrays.asList("Project HungerGames - By Skyost", "A documentation is available here : http://url.skyost.eu/caF."));
 		mapsFolder = new File(dataFolder + File.separator + "maps").getPath();

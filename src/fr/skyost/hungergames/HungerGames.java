@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -14,11 +16,13 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -157,11 +161,14 @@ public class HungerGames extends JavaPlugin {
 			setupRandomItems();
 			setupRewards();
 			setupKits();
+			setupMapInfo();
 			currentMap = HungerGamesAPI.generateMap();
 			final Messenger messenger = Bukkit.getMessenger();
 			messenger.registerOutgoingPluginChannel(this, "BungeeCord");
 			messenger.registerIncomingPluginChannel(this, "BungeeCord", new BungeeMessageListener());
 			registerCommands();
+			
+			
 		}
 		catch(final InvalidConfigurationException ex) {
 			ex.printStackTrace();
@@ -274,6 +281,69 @@ public class HungerGames extends JavaPlugin {
 					content.add(JsonItemStack.fromJson(serializedContent.get(i).toString(), "").toItemStack());
 				}
 				HungerGamesAPI.createKit(kitData.get("name").toString(), content.toArray(new ItemStack[content.size()]), false);
+			}
+		}
+	}
+	
+	private final void setupMapInfo() throws IOException {
+		final File mapInfoDirectory = new File(config.mapInfoDirectory);
+		if(!mapInfoDirectory.exists()) {
+			mapInfoDirectory.mkdirs();
+		}
+		else {
+			final File[] maps = mapInfoDirectory.listFiles();
+			for(final File map : maps) {
+				
+				if(!map.isFile() || !map.getName().equalsIgnoreCase(HungerGames.currentMap.getName() + ".yml")) {
+					continue;
+				}
+				
+				YamlConfiguration mapInfoConfig = YamlConfiguration.loadConfiguration(map);
+				
+				int x1 = mapInfoConfig.contains("x1") ? mapInfoConfig.getInt("x1") : 0;
+				int x2 = mapInfoConfig.contains("x2") ? mapInfoConfig.getInt("x2") : 0;
+				int z1 = mapInfoConfig.contains("z1") ? mapInfoConfig.getInt("z1") : 0;
+				int z2 = mapInfoConfig.contains("z2") ? mapInfoConfig.getInt("z2") : 0;
+				int minX, maxX, minZ, maxZ;
+				if (x1 < x2){
+					minX = x1;
+					maxX = x2;
+				}
+				else{
+					minX = x2;
+					maxX = x1;
+				}
+				if (z1 < z2){
+					minZ = z1;
+					maxZ = z2;
+				}
+				else{
+					minZ = z2;
+					maxZ = z1;
+				}
+				
+				int spawnX = mapInfoConfig.contains("spawnX") ? mapInfoConfig.getInt("spawnX") : 0;
+				int spawnY = mapInfoConfig.contains("spawnY") ? mapInfoConfig.getInt("spawnY") : 0;
+				int spawnZ = mapInfoConfig.contains("spawnZ") ? mapInfoConfig.getInt("spawnZ") : 0;
+				
+				Set<Location> spawnLocations = new HashSet<Location>();
+				
+				
+				ConfigurationSection spawnLocationsConfig = mapInfoConfig.getConfigurationSection("spawnLocations");
+				if (spawnLocationsConfig != null){
+					
+					for (String spawnLocationName: spawnLocationsConfig.getKeys(false)){
+						
+						ConfigurationSection spawnLocationConfig = spawnLocationsConfig.getConfigurationSection(spawnLocationName);
+						
+						int x = spawnLocationConfig.contains("x") ? spawnLocationConfig.getInt("x") : 0;
+						int y = spawnLocationConfig.contains("y") ? spawnLocationConfig.getInt("y") : 0;
+						int z = spawnLocationConfig.contains("z") ? spawnLocationConfig.getInt("z") : 0;
+						Location spawnLocation = new Location(HungerGames.currentMap, x, y, z);
+						
+						SpawnLocationManager.addSpawn(spawnLocation);
+					}
+				}
 			}
 		}
 	}
