@@ -18,9 +18,7 @@ public class ChestHolder {
 	public ChestHolder(World world, int minX, int minZ, int maxX, int maxZ) {
 		chests = new LinkedList<Chest>();
 		rand = new Random();
-		Location center;
-		int x, y, z;
-		center = world.getSpawnLocation();
+		int x, z;
 		for (x = minX; x <= maxX; x+=16)
 		for (z = -minZ; z <= maxZ; z+=16){
 			for (BlockState block : world.getChunkAt(x,z).getTileEntities()) {
