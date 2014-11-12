@@ -73,6 +73,7 @@ public class ChestHolder {
 				manager.removeRegion("arena");
 			}
 			manager.addRegion(region);
+			manager.save();
 			HungerGames.logsManager.log("Created worldguard region around the arena");
 		}
 		catch(Exception e){
