@@ -19,7 +19,7 @@ public class StaredownPeriod extends BukkitRunnable {
 		Player player;
 		for(final Entry<Player, HungerGamesProfile> entry : HungerGames.players.entrySet()) {
 			player = entry.getKey();
-			player.teleport(entry.getValue().getGeneratedLocation());
+			//player.teleport(entry.getValue().getGeneratedLocation());
 			player.setGameMode(GameMode.SURVIVAL);
 			player.setAllowFlight(false);
 			player.setSneaking(HungerGames.config.gameAutoSneak);
