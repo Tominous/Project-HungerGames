@@ -28,7 +28,9 @@ public class PostExecuteFirst extends BukkitRunnable {
 			player.getInventory().removeItem(HungerGames.kitSelector);
 			player.sendMessage(message);
 		}
-		HungerGames.tasks[0] = new Countdown(HungerGames.config.gameCountdownTime, HungerGames.config.gameCountdownExpBarLevel, HungerGames.config.gameCountdownMobBar, new PostExecuteSecond()).runTaskTimer(HungerGames.instance, 0, 20L).getTaskId();
+//		HungerGames.tasks[0] = new Countdown(HungerGames.config.gameCountdownTime, HungerGames.config.gameCountdownExpBarLevel, HungerGames.config.gameCountdownMobBar, new PostExecuteSecond()).runTaskTimer(HungerGames.instance, 0, 20L).getTaskId();
+//		HungerGames.tasks[1] = -1;
+		HungerGames.tasks[0] = new Countdown(HungerGames.config.gameCountdownTime, HungerGames.config.gameCountdownExpBarLevel, HungerGames.config.gameCountdownMobBar, new StaredownPeriod(), true).runTaskTimer(HungerGames.instance, 0, 20L).getTaskId();
 		HungerGames.tasks[1] = -1;
 	}
 	

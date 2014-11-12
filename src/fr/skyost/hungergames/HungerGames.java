@@ -90,6 +90,7 @@ public class HungerGames extends JavaPlugin {
 	public enum Step {
 		LOBBY,
 		FIRST_COUNTDOWN,
+		STAREDOWN,
 		SECOND_COUNTDOWN,
 		GAME;
 	}
