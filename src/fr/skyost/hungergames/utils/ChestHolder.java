@@ -13,6 +13,12 @@ import org.bukkit.block.Chest;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import com.sk89q.worldedit.BlockVector;
+import com.sk89q.worldguard.bukkit.WGBukkit;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+
 import fr.skyost.hungergames.HungerGames;
 import fr.skyost.hungergames.tasks.RandomItems;
 
@@ -57,6 +63,22 @@ public class ChestHolder {
 			}
 		}
 
+		try{
+			
+			BlockVector min = new BlockVector(minX, 0, minZ);
+			BlockVector max = new BlockVector(maxX, 0, maxZ);
+			ProtectedRegion region = new ProtectedCuboidRegion("arena", min, max);
+			RegionManager manager = WGBukkit.getRegionManager(world);
+			if (manager.hasRegion("arena")){
+				manager.removeRegion("arena");
+			}
+			manager.addRegion(region);
+			HungerGames.logsManager.log("Created worldguard region around the arena");
+		}
+		catch(Exception e){
+			HungerGames.logsManager.log("Unable to create worldguard region around the arena");
+		}
+		
 		HungerGames.logsManager.log("Loaded " + chests.size() + " chests!");
 
 		HungerGames.logsManager.log("Generating wall. This may take a while...");
