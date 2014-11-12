@@ -20,6 +20,7 @@ import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -219,11 +220,19 @@ public class HungerGames extends JavaPlugin {
 			Utils.writeToFile(new File(gameRandomItemsDirectory, "coal.json"), new JsonItemStack(50, Material.COAL.name(), null, Arrays.asList("For Christmas.", "- Mom"), null, Long.valueOf(5)).toJson("chances"));
 		}
 		for(final File randomItemFile : gameRandomItemsDirectory.listFiles()) {
-			if(!randomItemFile.isFile() || !randomItemFile.getName().endsWith(".json")) {
+			if(!randomItemFile.isFile()) {
 				continue;
 			}
-			final JsonItemStack randomItem = JsonItemStack.fromJson(Utils.getFileContent(randomItemFile, null), "chances");
-			randomItems.put(Integer.parseInt(randomItem.getOtherData().toString()), randomItem.toItemStack());
+				if (randomItemFile.getName().endsWith(".json")) {
+					final JsonItemStack randomItem = JsonItemStack.fromJson(Utils.getFileContent(randomItemFile, null), "chances");
+					randomItems.put(Integer.parseInt(randomItem.getOtherData().toString()), randomItem.toItemStack());
+				}
+				else if (randomItemFile.getName().endsWith(".yaml")) {
+					//yaml potion
+					final YamlPotion potion = new YamlPotion(YamlConfiguration.loadConfiguration(randomItemFile));
+					randomItems.put(potion.getChance(), potion.getItemStack());
+				}
+				
 		}
 	}
 	
