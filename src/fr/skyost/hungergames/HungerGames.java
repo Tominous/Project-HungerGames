@@ -234,7 +234,7 @@ public class HungerGames extends JavaPlugin {
 					final JsonItemStack randomItem = JsonItemStack.fromJson(Utils.getFileContent(randomItemFile, null), "chances");
 					randomItems.put(Integer.parseInt(randomItem.getOtherData().toString()), randomItem.toItemStack());
 				}
-				else if (randomItemFile.getName().endsWith(".yaml")) {
+				else if (randomItemFile.getName().endsWith(".yml")) {
 					//yaml potion
 					final YamlPotion potion = new YamlPotion(YamlConfiguration.loadConfiguration(randomItemFile));
 					randomItems.put(potion.getChance(), potion.getItemStack());
@@ -434,7 +434,7 @@ public class HungerGames extends JavaPlugin {
 	
 	private final void registerCommands() {
 		final HungerGamesCommand executor = new HungerGamesCommand();
-		for(final CommandInterface subCommand : new CommandInterface[]{new SpawnLocationSubCommand(), new InfosSubCommand(), new JoinSubCommand(), new KitSubCommand(), new LeaveSubCommand(), new SetLobbySubCommand(), new WinnersSubCommand()}) {
+		for(final CommandInterface subCommand : new CommandInterface[]{new ForceStartSubCommand(), new SpawnLocationSubCommand(), new InfosSubCommand(), new JoinSubCommand(), new KitSubCommand(), new LeaveSubCommand(), new SetLobbySubCommand(), new WinnersSubCommand()}) {
 			executor.registerSubCommand(subCommand);
 		}
 		final PluginCommand pluginCommand = this.getCommand("hg");

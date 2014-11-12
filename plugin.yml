@@ -9,7 +9,7 @@ commands:
  hg:
   description: Main command of Project HungerGames.
   aliases: [hunger-games, h-g]
-  usage: /hg join, /hg leave, /hg infos, /hg winners <page> /hg kit <create|delete> <kitname> or /hg setlobby.
+  usage: /hg join, /hg leave, /hg infos, /hg winners <page> /hg kit <create|delete> <kitname> /hg spawn <add/remove> or /hg setlobby.
 permissions:
  hungergames.join:
   default: true
@@ -35,3 +35,6 @@ permissions:
  hungergames.lobby.set:
   default: op
   description: Allows you to set the spawn of the lobby.
+ hungergames.start:
+  default: op
+  description: Allows the manual starting of a hunger games match
