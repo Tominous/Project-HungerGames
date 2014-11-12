@@ -300,10 +300,10 @@ public class HungerGames extends JavaPlugin {
 				
 				YamlConfiguration mapInfoConfig = YamlConfiguration.loadConfiguration(map);
 				
-				int x1 = mapInfoConfig.contains("x1") ? mapInfoConfig.getInt("x1") : 0;
-				int x2 = mapInfoConfig.contains("x2") ? mapInfoConfig.getInt("x2") : 0;
-				int z1 = mapInfoConfig.contains("z1") ? mapInfoConfig.getInt("z1") : 0;
-				int z2 = mapInfoConfig.contains("z2") ? mapInfoConfig.getInt("z2") : 0;
+				int x1 = mapInfoConfig.getInt("x1", 0);
+				int x2 = mapInfoConfig.getInt("x2", 0);
+				int z1 = mapInfoConfig.getInt("z1", 0);
+				int z2 = mapInfoConfig.getInt("z2", 0);
 				int minX, maxX, minZ, maxZ;
 				if (x1 < x2){
 					minX = x1;
@@ -322,12 +322,9 @@ public class HungerGames extends JavaPlugin {
 					maxZ = z1;
 				}
 				
-				int spawnX = mapInfoConfig.contains("spawnX") ? mapInfoConfig.getInt("spawnX") : 0;
-				int spawnY = mapInfoConfig.contains("spawnY") ? mapInfoConfig.getInt("spawnY") : 0;
-				int spawnZ = mapInfoConfig.contains("spawnZ") ? mapInfoConfig.getInt("spawnZ") : 0;
-				
-				Set<Location> spawnLocations = new HashSet<Location>();
-				
+				int spawnX = mapInfoConfig.getInt("spawnX", 0);
+				int spawnY = mapInfoConfig.getInt("spawnY", 0);
+				int spawnZ = mapInfoConfig.getInt("spawnZ", 0);				
 				
 				ConfigurationSection spawnLocationsConfig = mapInfoConfig.getConfigurationSection("spawnLocations");
 				if (spawnLocationsConfig != null){
