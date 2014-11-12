@@ -24,6 +24,9 @@ public class EntityListener  implements Listener {
 			return;
 		}	
 		final Entity target = event.getTarget();
+		if (target == null) {
+			return;
+		}
 		if(target.getType() == EntityType.PLAYER) {
 			final Entity entity = event.getEntity();
 			final Player player = (Player)target;

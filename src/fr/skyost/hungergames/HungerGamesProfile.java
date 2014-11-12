@@ -48,11 +48,13 @@ public class HungerGamesProfile {
 		allowFlight = player.getAllowFlight();
 		generatedLocation = SpawnLocationManager.next(); //THIS IS IT
 		isSneaking = player.isSneaking();
-		final Random random = new Random();
-		final int doubledDistance = HungerGames.config.gameSpawnDistance * 2;
-		final int x = random.nextInt(doubledDistance) - HungerGames.config.gameSpawnDistance + 1;
-		final int z = random.nextInt(doubledDistance) - HungerGames.config.gameSpawnDistance + 1;
-		generatedLocation.add(x, 100, z);
+		//final Random random = new Random();
+		//final int doubledDistance = HungerGames.config.gameSpawnDistance * 2;
+		//final int x = random.nextInt(doubledDistance) - HungerGames.config.gameSpawnDistance + 1;
+		//final int z = random.nextInt(doubledDistance) - HungerGames.config.gameSpawnDistance + 1;
+		//generatedLocation.add(x, 100, z);
+		final int x = generatedLocation.getBlockX();
+		final int z = generatedLocation.getBlockZ();
 		final Chunk chunk = HungerGames.currentMap.getChunkAt(x, z);
 		chunk.load(true);
 		HungerGames.generatedChunks.add(chunk);
