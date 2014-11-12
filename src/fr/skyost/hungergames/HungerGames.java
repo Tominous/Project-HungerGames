@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -85,6 +83,8 @@ public class HungerGames extends JavaPlugin {
 	public static Pages pages;
 	public static Inventory kitsMenu;
 	public static ItemStack kitSelector;
+	
+	public static ChestHolder chestHolder;
 	
 	public enum Step {
 		LOBBY,
@@ -300,10 +300,10 @@ public class HungerGames extends JavaPlugin {
 				
 				YamlConfiguration mapInfoConfig = YamlConfiguration.loadConfiguration(map);
 				
-				int x1 = mapInfoConfig.contains("x1") ? mapInfoConfig.getInt("x1") : 0;
-				int x2 = mapInfoConfig.contains("x2") ? mapInfoConfig.getInt("x2") : 0;
-				int z1 = mapInfoConfig.contains("z1") ? mapInfoConfig.getInt("z1") : 0;
-				int z2 = mapInfoConfig.contains("z2") ? mapInfoConfig.getInt("z2") : 0;
+				int x1 = mapInfoConfig.getInt("x1", 0);
+				int x2 = mapInfoConfig.getInt("x2", 0);
+				int z1 = mapInfoConfig.getInt("z1", 0);
+				int z2 = mapInfoConfig.getInt("z2", 0);
 				int minX, maxX, minZ, maxZ;
 				if (x1 < x2){
 					minX = x1;
@@ -322,12 +322,7 @@ public class HungerGames extends JavaPlugin {
 					maxZ = z1;
 				}
 				
-				int spawnX = mapInfoConfig.contains("spawnX") ? mapInfoConfig.getInt("spawnX") : 0;
-				int spawnY = mapInfoConfig.contains("spawnY") ? mapInfoConfig.getInt("spawnY") : 0;
-				int spawnZ = mapInfoConfig.contains("spawnZ") ? mapInfoConfig.getInt("spawnZ") : 0;
-				
-				Set<Location> spawnLocations = new HashSet<Location>();
-				
+				chestHolder = new ChestHolder(HungerGames.currentMap, minX, minZ, maxX, maxZ);
 				
 				ConfigurationSection spawnLocationsConfig = mapInfoConfig.getConfigurationSection("spawnLocations");
 				if (spawnLocationsConfig != null){
