@@ -47,6 +47,7 @@ import fr.skyost.hungergames.commands.subcommands.hungergames.*;
 import fr.skyost.hungergames.events.*;
 import fr.skyost.hungergames.events.configurable.*;
 import fr.skyost.hungergames.utils.*;
+import fr.skyost.hungergames.utils.borders.exceptions.WorldInfoNotFoundException;
 import fr.skyost.hungergames.utils.hooks.*;
 
 /**
@@ -161,8 +162,8 @@ public class HungerGames extends JavaPlugin {
 			setupRandomItems();
 			setupRewards();
 			setupKits();
-			setupMapInfo();
 			currentMap = HungerGamesAPI.generateMap();
+			setupMapInfo();
 			final Messenger messenger = Bukkit.getMessenger();
 			messenger.registerOutgoingPluginChannel(this, "BungeeCord");
 			messenger.registerIncomingPluginChannel(this, "BungeeCord", new BungeeMessageListener());
@@ -285,60 +286,59 @@ public class HungerGames extends JavaPlugin {
 		}
 	}
 	
-	private final void setupMapInfo() throws IOException {
+	private final void setupMapInfo() throws IOException, WorldInfoNotFoundException {
 		final File mapInfoDirectory = new File(config.mapInfoDirectory);
 		if(!mapInfoDirectory.exists()) {
 			mapInfoDirectory.mkdirs();
 		}
 		else {
-			final File[] maps = mapInfoDirectory.listFiles();
-			for(final File map : maps) {
+			File map = new File(mapInfoDirectory, HungerGames.currentMap.getName() + ".yml");
+			if (!map.exists()) {
+				System.out.println("Unable to find map info for map: " + HungerGames.currentMap.getName() + "!\n\n\n\n");
+				throw new WorldInfoNotFoundException();
+			}
+			
+			YamlConfiguration mapInfoConfig = YamlConfiguration.loadConfiguration(map);
+			
+			int x1 = mapInfoConfig.getInt("x1", 0);
+			int x2 = mapInfoConfig.getInt("x2", 0);
+			int z1 = mapInfoConfig.getInt("z1", 0);
+			int z2 = mapInfoConfig.getInt("z2", 0);
+			int minX, maxX, minZ, maxZ;
+			if (x1 < x2){
+				minX = x1;
+				maxX = x2;
+			}
+			else{
+				minX = x2;
+				maxX = x1;
+			}
+			if (z1 < z2){
+				minZ = z1;
+				maxZ = z2;
+			}
+			else{
+				minZ = z2;
+				maxZ = z1;
+			}
+			
+			chestHolder = new ChestHolder(HungerGames.currentMap, minX, minZ, maxX, maxZ);
+			
+			ConfigurationSection spawnLocationsConfig = mapInfoConfig.getConfigurationSection("spawnLocations");
+			if (spawnLocationsConfig != null){
 				
-				if(!map.isFile() || !map.getName().equalsIgnoreCase(HungerGames.currentMap.getName() + ".yml")) {
-					continue;
-				}
-				
-				YamlConfiguration mapInfoConfig = YamlConfiguration.loadConfiguration(map);
-				
-				int x1 = mapInfoConfig.getInt("x1", 0);
-				int x2 = mapInfoConfig.getInt("x2", 0);
-				int z1 = mapInfoConfig.getInt("z1", 0);
-				int z2 = mapInfoConfig.getInt("z2", 0);
-				int minX, maxX, minZ, maxZ;
-				if (x1 < x2){
-					minX = x1;
-					maxX = x2;
-				}
-				else{
-					minX = x2;
-					maxX = x1;
-				}
-				if (z1 < z2){
-					minZ = z1;
-					maxZ = z2;
-				}
-				else{
-					minZ = z2;
-					maxZ = z1;
-				}
-				
-				chestHolder = new ChestHolder(HungerGames.currentMap, minX, minZ, maxX, maxZ);
-				
-				ConfigurationSection spawnLocationsConfig = mapInfoConfig.getConfigurationSection("spawnLocations");
-				if (spawnLocationsConfig != null){
+				for (String spawnLocationName: spawnLocationsConfig.getKeys(false)){
 					
-					for (String spawnLocationName: spawnLocationsConfig.getKeys(false)){
-						
-						ConfigurationSection spawnLocationConfig = spawnLocationsConfig.getConfigurationSection(spawnLocationName);
-						
-						int x = spawnLocationConfig.contains("x") ? spawnLocationConfig.getInt("x") : 0;
-						int y = spawnLocationConfig.contains("y") ? spawnLocationConfig.getInt("y") : 0;
-						int z = spawnLocationConfig.contains("z") ? spawnLocationConfig.getInt("z") : 0;
-						Location spawnLocation = new Location(HungerGames.currentMap, x, y, z);
-						
-						SpawnLocationManager.addSpawn(spawnLocation);
-					}
+					ConfigurationSection spawnLocationConfig = spawnLocationsConfig.getConfigurationSection(spawnLocationName);
+					
+					int x = spawnLocationConfig.contains("x") ? spawnLocationConfig.getInt("x") : 0;
+					int y = spawnLocationConfig.contains("y") ? spawnLocationConfig.getInt("y") : 0;
+					int z = spawnLocationConfig.contains("z") ? spawnLocationConfig.getInt("z") : 0;
+					Location spawnLocation = new Location(HungerGames.currentMap, x, y, z);
+					
+					SpawnLocationManager.addSpawn(spawnLocation);
 				}
+			
 			}
 		}
 	}

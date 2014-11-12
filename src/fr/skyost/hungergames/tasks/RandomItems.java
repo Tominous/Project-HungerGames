@@ -54,7 +54,7 @@ public class RandomItems extends BukkitRunnable {
 		scheduler.scheduleSyncDelayedTask(HungerGames.instance, this, random.nextInt(HungerGames.config.gameRandomItemsDelay * 20));
 	}
 	
-	private final ItemStack pickRandomItem() {
+	public static final ItemStack pickRandomItem() {
 		int probability = 0;
 		for(final int key : HungerGames.randomItems.keySet()) {
 			probability += Integer.valueOf(key);
