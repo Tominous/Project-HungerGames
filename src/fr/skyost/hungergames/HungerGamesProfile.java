@@ -46,7 +46,7 @@ public class HungerGamesProfile {
 		armor = inventory.getArmorContents();
 		gameMode = player.getGameMode();
 		allowFlight = player.getAllowFlight();
-		generatedLocation = HungerGames.currentMap.getSpawnLocation();
+		generatedLocation = SpawnLocationManager.next(); //THIS IS IT
 		isSneaking = player.isSneaking();
 		final Random random = new Random();
 		final int doubledDistance = HungerGames.config.gameSpawnDistance * 2;

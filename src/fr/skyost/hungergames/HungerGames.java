@@ -214,8 +214,8 @@ public class HungerGames extends JavaPlugin {
 		final File gameRandomItemsDirectory = new File(config.gameRandomItemsDirectory);
 		if(!gameRandomItemsDirectory.exists()) {
 			gameRandomItemsDirectory.mkdirs();
-			Utils.writeToFile(new File(gameRandomItemsDirectory, "gold-sword.json"), new JsonItemStack(10, Material.GOLD_SWORD.name(), "§6Gold sword", "§oCan be useful.", Enchantment.DAMAGE_ALL.getName(), Long.valueOf(Enchantment.DAMAGE_ALL.getMaxLevel()), null).toJson("chances"));
-			Utils.writeToFile(new File(gameRandomItemsDirectory, "emerald.json"), new JsonItemStack(20, Material.EMERALD.name(), "§aEmerald", "§oI know you love it too.", null, null, null).toJson("chances"));
+			Utils.writeToFile(new File(gameRandomItemsDirectory, "gold-sword.json"), new JsonItemStack(10, Material.GOLD_SWORD.name(), "ï¿½6Gold sword", "ï¿½oCan be useful.", Enchantment.DAMAGE_ALL.getName(), Long.valueOf(Enchantment.DAMAGE_ALL.getMaxLevel()), null).toJson("chances"));
+			Utils.writeToFile(new File(gameRandomItemsDirectory, "emerald.json"), new JsonItemStack(20, Material.EMERALD.name(), "ï¿½aEmerald", "ï¿½oI know you love it too.", null, null, null).toJson("chances"));
 			Utils.writeToFile(new File(gameRandomItemsDirectory, "coal.json"), new JsonItemStack(50, Material.COAL.name(), null, Arrays.asList("For Christmas.", "- Mom"), null, Long.valueOf(5)).toJson("chances"));
 		}
 		for(final File randomItemFile : gameRandomItemsDirectory.listFiles()) {
@@ -231,7 +231,7 @@ public class HungerGames extends JavaPlugin {
 		final File gameRewardsDirectory = new File(config.gameRewardsDirectory);
 		if(!gameRewardsDirectory.exists()) {
 			gameRewardsDirectory.mkdirs();
-			Utils.writeToFile(new File(gameRewardsDirectory, "gold-ingot.json"), new JsonItemStack(1, Material.GOLD_INGOT.name(), "§6Congracubations !", null, null, null, Long.valueOf(3)).toJson("position"));
+			Utils.writeToFile(new File(gameRewardsDirectory, "gold-ingot.json"), new JsonItemStack(1, Material.GOLD_INGOT.name(), "ï¿½6Congracubations !", null, null, null, Long.valueOf(3)).toJson("position"));
 		}
 		for(final File reward : gameRewardsDirectory.listFiles()) {
 			if(!reward.isFile() || !reward.getName().endsWith(".json")) {
@@ -250,7 +250,7 @@ public class HungerGames extends JavaPlugin {
 		final File kitsDirectory = new File(config.kitsDirectory);
 		if(!kitsDirectory.exists()) {
 			kitsDirectory.mkdirs();
-			HungerGamesAPI.createKit("§7Iron", new ItemStack(Material.IRON_INGOT), new ItemStack(Material.IRON_HELMET), new ItemStack(Material.IRON_CHESTPLATE), new ItemStack(Material.IRON_LEGGINGS), new ItemStack(Material.IRON_BOOTS));
+			HungerGamesAPI.createKit("ï¿½7Iron", new ItemStack(Material.IRON_INGOT), new ItemStack(Material.IRON_HELMET), new ItemStack(Material.IRON_CHESTPLATE), new ItemStack(Material.IRON_LEGGINGS), new ItemStack(Material.IRON_BOOTS));
 		}
 		else {
 			final File[] kits = kitsDirectory.listFiles();
@@ -355,7 +355,7 @@ public class HungerGames extends JavaPlugin {
 	
 	private final void registerCommands() {
 		final HungerGamesCommand executor = new HungerGamesCommand();
-		for(final CommandInterface subCommand : new CommandInterface[]{new InfosSubCommand(), new JoinSubCommand(), new KitSubCommand(), new LeaveSubCommand(), new SetLobbySubCommand(), new WinnersSubCommand()}) {
+		for(final CommandInterface subCommand : new CommandInterface[]{new SpawnLocationSubCommand(), new InfosSubCommand(), new JoinSubCommand(), new KitSubCommand(), new LeaveSubCommand(), new SetLobbySubCommand(), new WinnersSubCommand()}) {
 			executor.registerSubCommand(subCommand);
 		}
 		final PluginCommand pluginCommand = this.getCommand("hg");

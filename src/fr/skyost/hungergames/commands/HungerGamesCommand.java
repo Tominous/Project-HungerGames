@@ -9,7 +9,7 @@ public class HungerGamesCommand extends SubCommandsExecutor {
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command command, final String label, String[] args) {
 		if(args.length <= 0) {
-			sender.sendMessage(ChatColor.GOLD + "Project HungerGames - By Skyost (http://www.skyost.eu)");
+			sender.sendMessage(ChatColor.GOLD + "Project HungerGames - By Skyost & NMT Minecraft Club");
 			return true;
 		}
 		return super.onCommand(sender, command, label, args);
