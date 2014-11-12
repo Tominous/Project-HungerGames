@@ -48,6 +48,7 @@ public class EffectLibHook {
 		final BleedEffect effect = new BleedEffect(manager);
 		effect.setEntity(entity);
 		effect.duration = 1;
+		
 		effect.iterations = 1;
 		effect.start();
 	}

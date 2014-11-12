@@ -70,39 +70,39 @@ public class ErrorReport {
 	 */
 	
 	public final void report() {
-		new Thread() {
-			
-			@Override
-			public void run() {
-				try {
-					HungerGames.logsManager.log("[ErrorReport] Sending the report from " + name + "<" + email + ">...");
-					final HttpURLConnection connection = (HttpURLConnection)new URL("http", "www.project-hungergames.ml", "/bug.php").openConnection();
-					connection.setRequestMethod("POST");
-					connection.setRequestProperty("User-Agent", "Project HungerGames");
-					connection.setDoOutput(true);
-					final DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
-					outputStream.writeBytes("name=" + URLEncoder.encode(name, "UTF-8") + "&email=" + URLEncoder.encode(email, "UTF-8") + "&message=" + URLEncoder.encode(message, "UTF-8") + "&subject=" + subject);
-					outputStream.flush();
-					outputStream.close();
-					final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-					String inputLine;
-					final StringBuilder builder = new StringBuilder();
-					while((inputLine = reader.readLine()) != null) {
-						builder.append(inputLine);
-					}
-					reader.close();
-					connection.disconnect();
-					final String response = builder.toString();
-					final boolean success = response.contains("Success");
-					HungerGames.logsManager.log("[ErrorReport] " + (success ? "Success !" : "Error..."), success ? Level.INFO : Level.SEVERE);
-				}
-				catch(final Exception ex) {
-					ex.printStackTrace();
-					HungerGames.logsManager.log("[ErrorReport] Error while sending error report.");
-				}
-			}
-			
-		}.start();
+//		new Thread() {
+//			
+//			@Override
+//			public void run() {
+//				try {
+//					HungerGames.logsManager.log("[ErrorReport] Sending the report from " + name + "<" + email + ">...");
+//					final HttpURLConnection connection = (HttpURLConnection)new URL("http", "www.project-hungergames.ml", "/bug.php").openConnection();
+//					connection.setRequestMethod("POST");
+//					connection.setRequestProperty("User-Agent", "Project HungerGames");
+//					connection.setDoOutput(true);
+//					final DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
+//					outputStream.writeBytes("name=" + URLEncoder.encode(name, "UTF-8") + "&email=" + URLEncoder.encode(email, "UTF-8") + "&message=" + URLEncoder.encode(message, "UTF-8") + "&subject=" + subject);
+//					outputStream.flush();
+//					outputStream.close();
+//					final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//					String inputLine;
+//					final StringBuilder builder = new StringBuilder();
+//					while((inputLine = reader.readLine()) != null) {
+//						builder.append(inputLine);
+//					}
+//					reader.close();
+//					connection.disconnect();
+//					final String response = builder.toString();
+//					final boolean success = response.contains("Success");
+//					HungerGames.logsManager.log("[ErrorReport] " + (success ? "Success !" : "Error..."), success ? Level.INFO : Level.SEVERE);
+//				}
+//				catch(final Exception ex) {
+//					ex.printStackTrace();
+//					HungerGames.logsManager.log("[ErrorReport] Error while sending error report.");
+//				}
+//			}
+//			
+//		}.start();
 	}
 	
 	/**
