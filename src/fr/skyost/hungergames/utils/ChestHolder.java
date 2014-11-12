@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldguard.bukkit.WGBukkit;
+import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
@@ -63,10 +64,15 @@ public class ChestHolder {
 		}
 
 		try{
+			
 			BlockVector min = new BlockVector(minX, 0, minZ);
 			BlockVector max = new BlockVector(maxX, 0, maxZ);
 			ProtectedRegion region = new ProtectedCuboidRegion("arena", min, max);
-			WGBukkit.getRegionManager(world).addRegion(region);
+			RegionManager manager = WGBukkit.getRegionManager(world);
+			if (manager.hasRegion("arena")){
+				manager.removeRegion("arena");
+			}
+			manager.addRegion(region);
 			HungerGames.logsManager.log("Created worldguard region around the arena");
 		}
 		catch(Exception e){
