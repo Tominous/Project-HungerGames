@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
@@ -15,6 +14,15 @@ public class ChestHolder {
 	private List<Chest> chests;
 	private Random rand;
 	
+	/**
+	 * Genereates a new Chest Holder, which goes through the described region and
+	 * detects all pre-existing chests and stores them.
+	 * @param world
+	 * @param minX
+	 * @param minZ
+	 * @param maxX
+	 * @param maxZ
+	 */
 	public ChestHolder(World world, int minX, int minZ, int maxX, int maxZ) {
 		chests = new LinkedList<Chest>();
 		rand = new Random();
