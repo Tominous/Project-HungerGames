@@ -28,7 +28,7 @@ public class StaredownPeriod extends BukkitRunnable {
 			player.setExhaustion(0);
 			player.setSaturation(20.0f);
 			player.getInventory().removeItem(HungerGames.kitSelector);
-			player.sendMessage("Go!");
+			player.sendMessage("Go! Starting Invincibility Period...");
 		}
 		HungerGames.tasks[0] = new Countdown(HungerGames.config.gameCountdownTime, HungerGames.config.gameCountdownExpBarLevel, HungerGames.config.gameCountdownMobBar, new PostExecuteSecond()).runTaskTimer(HungerGames.instance, 0, 20L).getTaskId();
 		HungerGames.tasks[1] = -1;
