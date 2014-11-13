@@ -22,6 +22,10 @@ public class PostExecuteFirst extends BukkitRunnable {
 			player = entry.getKey();
 			player.teleport(entry.getValue().getGeneratedLocation());
 			player.getInventory().clear();
+			player.getInventory().setChestplate(null);
+			player.getInventory().setLeggings(null);
+			player.getInventory().setBoots(null);
+			player.getInventory().setHelmet(null);
 			player.setGameMode(GameMode.SURVIVAL);
 			player.setAllowFlight(false);
 			player.setSneaking(HungerGames.config.gameAutoSneak);
