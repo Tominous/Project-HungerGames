@@ -74,7 +74,7 @@ public class Countdown extends BukkitRunnable {
 				mobBarApi.setStatus(player, String.valueOf(time), (100 * time) / originalTime, false);
 			}
 			if (stale) {
-				player.teleport(startLocations.get(player.getUniqueId()));
+				player.teleport(startLocations.get(player.getUniqueId()).setDirection(player.getLocation().getDirection()));
 			}
 		}
 		if(time == 0) {
