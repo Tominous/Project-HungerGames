@@ -4,24 +4,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.PluginAwareness.Flags;
 
-import com.sk89q.worldedit.BlockVector;
-import com.sk89q.worldguard.bukkit.WGBukkit;
-import com.sk89q.worldguard.protection.flags.DefaultFlag;
-import com.sk89q.worldguard.protection.flags.StateFlag;
-import com.sk89q.worldguard.protection.flags.StateFlag.State;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import fr.skyost.hungergames.HungerGames;
 import fr.skyost.hungergames.tasks.RandomItems;
@@ -65,28 +54,6 @@ public class ChestHolder {
 				
 				chests.add(chest);	
 			}
-		}
-
-		try{
-			
-			BlockVector min = new BlockVector(minX, 0, minZ);
-			BlockVector max = new BlockVector(maxX, 255, maxZ);
-			ProtectedRegion region = new ProtectedCuboidRegion("arena", min, max);
-			region.setFlag(DefaultFlag.BUILD, StateFlag.State.DENY);
-			region.setFlag(DefaultFlag.PVP, State.ALLOW);
-			region.setFlag(DefaultFlag.USE, State.ALLOW);
-			region.setFlag(DefaultFlag.CHEST_ACCESS, State.ALLOW);
-			region.setFlag(DefaultFlag.POTION_SPLASH, State.ALLOW);
-			RegionManager manager = WGBukkit.getRegionManager(world);
-			if (manager.hasRegion("arena")){
-				manager.removeRegion("arena");
-			}
-			manager.addRegion(region);
-			manager.save();
-			HungerGames.logsManager.log("Created worldguard region around the arena");
-		}
-		catch(Exception e){
-			HungerGames.logsManager.log("Unable to create worldguard region around the arena");
 		}
 		
 		HungerGames.logsManager.log("Loaded " + chests.size() + " chests!");

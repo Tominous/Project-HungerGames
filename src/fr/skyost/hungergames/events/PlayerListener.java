@@ -74,6 +74,7 @@ public class PlayerListener implements Listener {
 		}
 		Material block = event.getClickedBlock().getType();
 		if (event.getAction().equals(Action.LEFT_CLICK_BLOCK))
+		if (block != null)
 		if (!HungerGames.playerMaterials.contains(block)) {
 			event.setCancelled(true);
 			return;

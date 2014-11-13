@@ -41,6 +41,7 @@ public class Countdown extends BukkitRunnable {
 			Vector v = loc.getWorld().getSpawnLocation().toVector().subtract(loc.toVector());
 			loc.setDirection(v);
 			startLocations.put(player.getUniqueId(), loc);
+			player.teleport(loc);
 		}
 	}
 
