@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -86,6 +88,7 @@ public class HungerGames extends JavaPlugin {
 	public static ItemStack kitSelector;
 	
 	public static ChestHolder chestHolder;
+	public static Set<Material> playerMaterials;
 	
 	public enum Step {
 		LOBBY,
@@ -170,6 +173,12 @@ public class HungerGames extends JavaPlugin {
 			messenger.registerIncomingPluginChannel(this, "BungeeCord", new BungeeMessageListener());
 			registerCommands();
 			
+			//set up player enabled blocks
+			playerMaterials = new HashSet<Material>();
+			playerMaterials.add(Material.SEEDS);
+			playerMaterials.add(Material.CROPS);
+			playerMaterials.add(Material.CARROT);
+			playerMaterials.add(Material.POTATO);
 			
 		}
 		catch(final InvalidConfigurationException ex) {

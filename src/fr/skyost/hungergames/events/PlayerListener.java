@@ -2,10 +2,12 @@ package fr.skyost.hungergames.events;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -49,16 +51,32 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler
 	private final void onPlayerInteract(final PlayerInteractEvent event) {
-		final ItemStack item = event.getItem();
-		if(item != null && item.equals(HungerGames.kitSelector)) {
-			final Player player = event.getPlayer();
-			if(player.hasPermission("hungergames.kits.use")) {
-				player.openInventory(HungerGames.kitsMenu);
-			}
-			else {
-				player.sendMessage(HungerGames.messages.messagePermission);
-			}
+//		final ItemStack item = event.getItem();
+//		if(item != null && item.equals(HungerGames.kitSelector)) {
+//			final Player player = event.getPlayer();
+//			if(player.hasPermission("hungergames.kits.use")) {
+//				player.openInventory(HungerGames.kitsMenu);
+//			}
+//			else {
+//				player.sendMessage(HungerGames.messages.messagePermission);
+//			}
+//			event.setCancelled(true);
+//		}
+		HungerGamesProfile playerData = HungerGames.players.get(event.getPlayer());
+		if (playerData == null) {
+			//player is a spectator or not part of hunger games 
 			event.setCancelled(true);
+			return;
+		}
+		if (!event.getPlayer().getWorld().getName().equals(HungerGames.currentMap.getName())) {
+			event.setCancelled(true);
+			return;
+		}
+		Material block = event.getClickedBlock().getType();
+		if (event.getAction().equals(Action.LEFT_CLICK_BLOCK))
+		if (!HungerGames.playerMaterials.contains(block)) {
+			event.setCancelled(true);
+			return;
 		}
 	}
 	
