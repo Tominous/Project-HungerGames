@@ -72,6 +72,9 @@ public class PlayerListener implements Listener {
 			event.setCancelled(true);
 			return;
 		}
+		if (event.getClickedBlock() == null) {
+			return;
+		}
 		Material block = event.getClickedBlock().getType();
 		if (event.getAction().equals(Action.LEFT_CLICK_BLOCK))
 		if (block != null)
