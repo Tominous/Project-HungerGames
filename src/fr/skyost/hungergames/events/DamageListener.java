@@ -34,7 +34,7 @@ public class DamageListener implements Listener {
 			if(world.equals(HungerGames.lobby) || HungerGames.spectatorsManager.hasSpectator(player) || (world.equals(HungerGames.currentMap) && HungerGames.currentStep != Step.GAME)) {
 				event.setCancelled(true);
 			}
-			else if(world.equals(HungerGames.currentMap) && HungerGames.currentStep == Step.GAME) {
+			else if(world.equals(HungerGames.currentMap) && (HungerGames.currentStep == Step.GAME || HungerGames.currentStep == Step.STAREDOWN)) {
 				if(player.getGameMode() != GameMode.CREATIVE && player.getHealth() - event.getDamage() <= 0.0) {
 					event.setCancelled(true);
 					final Location location = player.getLocation();
