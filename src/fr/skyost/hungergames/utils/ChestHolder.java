@@ -9,7 +9,9 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+
 
 
 import fr.skyost.hungergames.HungerGames;
@@ -39,10 +41,12 @@ public class ChestHolder {
 		for (y = 0; y <= world.getHighestBlockYAt(x, z) ; y++) {
 			Block block = world.getBlockAt(x, y, z);
 			Material blockType = block.getType();
+			if (block.getState() instanceof InventoryHolder) {
+				InventoryHolder inv = (InventoryHolder) block.getState();
+				inv.getInventory().clear();
+			}
 			if (block.getState() instanceof Chest) {
 				Chest chest = (Chest) block.getState();
-				Inventory inv = chest.getInventory();
-				inv.clear();
 				
 				Random random = new Random();
 				int max, i;
