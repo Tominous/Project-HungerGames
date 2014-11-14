@@ -95,7 +95,8 @@ public class HungerGames extends JavaPlugin {
 		FIRST_COUNTDOWN,
 		STAREDOWN,
 		SECOND_COUNTDOWN,
-		GAME;
+		GAME,
+		DEATHMATCH;
 	}
 	
 	@Override
