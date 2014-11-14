@@ -79,6 +79,17 @@ public class PlayerListener implements Listener {
 			return;
 		}
 		Material block = event.getClickedBlock().getType();
+		if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) 
+		if (block != null)
+		if (event.isBlockInHand()) {
+			ItemStack item = event.getItem();
+			if (!HungerGames.playerMaterials.contains(item)) {
+				event.setCancelled(true);
+				return;
+			}
+		}
+	
+		
 		if (event.getAction().equals(Action.LEFT_CLICK_BLOCK))
 		if (block != null)
 		if (!HungerGames.playerMaterials.contains(block)) {

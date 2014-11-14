@@ -180,6 +180,8 @@ public class HungerGames extends JavaPlugin {
 			playerMaterials.add(Material.CROPS);
 			playerMaterials.add(Material.CARROT);
 			playerMaterials.add(Material.POTATO);
+			playerMaterials.add(Material.RED_MUSHROOM);
+			playerMaterials.add(Material.WEB);
 			
 		}
 		catch(final InvalidConfigurationException ex) {
@@ -349,6 +351,8 @@ public class HungerGames extends JavaPlugin {
 					
 					SpawnLocationManager.addSpawn(spawnLocation);
 				}
+				
+				SpawnLocationManager.shuffle();
 			
 			}
 		}

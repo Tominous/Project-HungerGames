@@ -21,7 +21,7 @@ public class ForceStartSubCommand implements CommandInterface {
 	
 	@Override
 	public final boolean forcePlayer() {
-		return true;
+		return false;
 	}
 	
 	@Override

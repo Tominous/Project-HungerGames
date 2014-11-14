@@ -1,6 +1,9 @@
 package fr.skyost.hungergames;
 
+
+
 import fr.skyost.hungergames.utils.CircularQueue;
+
 import org.bukkit.Location;
 
 
@@ -22,6 +25,11 @@ public final class SpawnLocationManager {
 	 */
 	public static Location next() {
 		return list.next();
+	}
+	
+	public static void shuffle() {
+		if (list != null)
+		java.util.Collections.shuffle(list);
 	}
 	
 	/**
