@@ -62,6 +62,22 @@ public class PlayerListener implements Listener {
 //			}
 //			event.setCancelled(true);
 //		}
+		
+		if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_AIR) {
+			return;
+		}
+		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+			Material block = event.getClickedBlock().getType();
+			if (block != null)
+				if (event.isBlockInHand()) {
+					ItemStack item = event.getItem();
+					if (!HungerGames.playerMaterials.contains(item.getType())) {
+						event.setCancelled(true);
+						return;
+					}
+				}
+		}
+		
 		HungerGamesProfile playerData = HungerGames.players.get(event.getPlayer());
 		if (event.getPlayer().isOp()) {
 			return;
@@ -79,15 +95,7 @@ public class PlayerListener implements Listener {
 			return;
 		}
 		Material block = event.getClickedBlock().getType();
-		if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) 
-		if (block != null)
-		if (event.isBlockInHand()) {
-			ItemStack item = event.getItem();
-			if (!HungerGames.playerMaterials.contains(item)) {
-				event.setCancelled(true);
-				return;
-			}
-		}
+		
 	
 		
 		if (event.getAction().equals(Action.LEFT_CLICK_BLOCK))
