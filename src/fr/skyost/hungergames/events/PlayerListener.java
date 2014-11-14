@@ -62,26 +62,33 @@ public class PlayerListener implements Listener {
 //			}
 //			event.setCancelled(true);
 //		}
+
+		if (event.getPlayer().isOp()) {
+			return;
+		}
 		
 		if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_AIR) {
 			return;
 		}
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			Material block = event.getClickedBlock().getType();
-			if (block != null)
-				if (event.isBlockInHand()) {
-					ItemStack item = event.getItem();
-					if (!HungerGames.playerMaterials.contains(item.getType())) {
-						event.setCancelled(true);
-						return;
-					}
+			if (block != null) {
+				if (block == Material.TRAP_DOOR || block == Material.STONE_BUTTON || block == Material.WOOD_BUTTON
+				    || block == Material.LEVER || block == Material.CHEST || block == Material.WORKBENCH 
+				    || block == Material.FURNACE || block == Material.WOODEN_DOOR || block == Material.BURNING_FURNACE) {
+					return;
 				}
+					if (event.isBlockInHand()) {
+						ItemStack item = event.getItem();
+						if (!HungerGames.playerMaterials.contains(item.getType())) {
+							event.setCancelled(true);
+							return;
+						}
+					}
+			}
 		}
 		
 		HungerGamesProfile playerData = HungerGames.players.get(event.getPlayer());
-		if (event.getPlayer().isOp()) {
-			return;
-		}
 		if (playerData == null) {
 			//player is a spectator or not part of hunger games 
 			event.setCancelled(true);

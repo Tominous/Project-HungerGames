@@ -183,6 +183,11 @@ public class HungerGames extends JavaPlugin {
 			playerMaterials.add(Material.RED_MUSHROOM);
 			playerMaterials.add(Material.BROWN_MUSHROOM);
 			playerMaterials.add(Material.WEB);
+			playerMaterials.add(Material.STONE_BUTTON);
+			playerMaterials.add(Material.CHEST);
+			playerMaterials.add(Material.WOODEN_DOOR);
+			playerMaterials.add(Material.WOOD_BUTTON);
+			playerMaterials.add(Material.WOOD_BUTTON);
 			
 		}
 		catch(final InvalidConfigurationException ex) {

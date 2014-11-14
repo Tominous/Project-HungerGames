@@ -2,6 +2,7 @@ package fr.skyost.hungergames.events;
 
 import java.util.Random;
 
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,6 +31,12 @@ public class DamageListener implements Listener {
 		final Entity entity = event.getEntity();
 		if(entity.getType() == EntityType.PLAYER) {
 			final Player player = (Player)entity;
+			if (!HungerGames.players.containsKey(player) && !HungerGames.spectatorsManager.hasSpectator(player)) {
+				System.out.println(ChatColor.BLUE + "Non-HG player is hurting something. That's okay." + ChatColor.RESET);
+				return;
+			}
+
+			System.out.println(ChatColor.BLUE + "HG player is hurting something. That's NOT okay." + ChatColor.RESET);
 			final World world = entity.getWorld();
 			if(world.equals(HungerGames.lobby) || HungerGames.spectatorsManager.hasSpectator(player) || (world.equals(HungerGames.currentMap) && HungerGames.currentStep != Step.GAME)) {
 				event.setCancelled(true);
