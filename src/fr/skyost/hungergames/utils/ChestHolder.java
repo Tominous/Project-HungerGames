@@ -38,6 +38,7 @@ public class ChestHolder {
 		for (z = minZ; z <= maxZ; z++)
 		for (y = 0; y <= world.getHighestBlockYAt(x, z) ; y++) {
 			Block block = world.getBlockAt(x, y, z);
+			Material blockType = block.getType();
 			if (block.getState() instanceof Chest) {
 				Chest chest = (Chest) block.getState();
 				Inventory inv = chest.getInventory();
@@ -53,6 +54,9 @@ public class ChestHolder {
 				}
 				
 				chests.add(chest);	
+			}
+			else if (blockType == Material.CROPS || blockType == Material.CARROT || blockType == Material.POTATO) {
+				block.setType(Material.AIR); //remove all crops
 			}
 		}
 		
