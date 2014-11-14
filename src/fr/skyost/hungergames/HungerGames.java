@@ -181,6 +181,7 @@ public class HungerGames extends JavaPlugin {
 			playerMaterials.add(Material.CARROT);
 			playerMaterials.add(Material.POTATO);
 			playerMaterials.add(Material.RED_MUSHROOM);
+			playerMaterials.add(Material.BROWN_MUSHROOM);
 			playerMaterials.add(Material.WEB);
 			
 		}
