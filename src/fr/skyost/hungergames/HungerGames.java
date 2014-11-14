@@ -439,7 +439,7 @@ public class HungerGames extends JavaPlugin {
 	
 	private final void registerCommands() {
 		final HungerGamesCommand executor = new HungerGamesCommand();
-		for(final CommandInterface subCommand : new CommandInterface[]{new ForceStartSubCommand(), new SpawnLocationSubCommand(), new InfosSubCommand(), new JoinSubCommand(), new KitSubCommand(), new LeaveSubCommand(), new SetLobbySubCommand(), new WinnersSubCommand()}) {
+		for(final CommandInterface subCommand : new CommandInterface[]{new DeathMatchSubCommand(), new ForceStartSubCommand(), new SpawnLocationSubCommand(), new InfosSubCommand(), new JoinSubCommand(), new KitSubCommand(), new LeaveSubCommand(), new SetLobbySubCommand(), new WinnersSubCommand()}) {
 			executor.registerSubCommand(subCommand);
 		}
 		final PluginCommand pluginCommand = this.getCommand("hg");
