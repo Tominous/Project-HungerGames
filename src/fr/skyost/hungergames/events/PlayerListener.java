@@ -63,6 +63,9 @@ public class PlayerListener implements Listener {
 //			event.setCancelled(true);
 //		}
 		HungerGamesProfile playerData = HungerGames.players.get(event.getPlayer());
+		if (event.getPlayer().isOp()) {
+			return;
+		}
 		if (playerData == null) {
 			//player is a spectator or not part of hunger games 
 			event.setCancelled(true);
