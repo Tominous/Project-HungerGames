@@ -51,17 +51,17 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler
 	private final void onPlayerInteract(final PlayerInteractEvent event) {
-//		final ItemStack item = event.getItem();
-//		if(item != null && item.equals(HungerGames.kitSelector)) {
-//			final Player player = event.getPlayer();
-//			if(player.hasPermission("hungergames.kits.use")) {
-//				player.openInventory(HungerGames.kitsMenu);
-//			}
-//			else {
-//				player.sendMessage(HungerGames.messages.messagePermission);
-//			}
-//			event.setCancelled(true);
-//		}
+		final ItemStack item = event.getItem();
+		if(item != null && item.equals(HungerGames.kitSelector)) {
+			final Player player = event.getPlayer();
+			if(player.hasPermission("hungergames.kits.use")) {
+				player.openInventory(HungerGames.kitsMenu);
+			}
+			else {
+				player.sendMessage(HungerGames.messages.messagePermission);
+			}
+			event.setCancelled(true);
+		}
 
 		if (event.getPlayer().isOp()) {
 			return;
