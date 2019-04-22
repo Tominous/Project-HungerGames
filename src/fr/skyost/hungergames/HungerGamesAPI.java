@@ -76,7 +76,7 @@ public class HungerGamesAPI {
 			HungerGames.spectatorsManager.addSpectator(player);
 		}
 		else {
-			//inventory.addItem(HungerGames.kitSelector);
+			inventory.addItem(HungerGames.kitSelector);
 			player.teleport((HungerGames.config.lobbySpawnX == 0 && HungerGames.config.lobbySpawnY == 0 && HungerGames.config.lobbySpawnZ == 0) ? HungerGames.lobby.getSpawnLocation() : new Location(HungerGames.lobby, HungerGames.config.lobbySpawnX, HungerGames.config.lobbySpawnY, HungerGames.config.lobbySpawnZ));
 			HungerGames.totalPlayers++;
 			broadcastMessage(HungerGames.messages.message14.replace("/n/", String.valueOf(HungerGames.totalPlayers)).replace("/n-max/", String.valueOf(HungerGames.config.gameMaxPlayers)).replace("/player/", player.getName()));
